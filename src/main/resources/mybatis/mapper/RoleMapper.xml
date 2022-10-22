@@ -97,7 +97,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dongdong.laborder.entity.Role">
-    insert into t_role (id, name)
+    insert into t_role (id, role_name)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dongdong.laborder.entity.Role">
@@ -142,7 +142,7 @@
   <update id="updateByExample" parameterType="map">
     update t_role
     set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=CHAR}
+      role_name = #{record.name,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -158,7 +158,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dongdong.laborder.entity.Role">
     update t_role
-    set name = #{name,jdbcType=CHAR}
+    set role_name = #{name,jdbcType=CHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

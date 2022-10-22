@@ -14,9 +14,11 @@ public class User {
 
     private String userName;
 
+    private Integer schoolId;
+
     private String password;
 
-    private Integer age;
+    private String email;
 
-    private Integer sex;
+    private String userRemark;
 }
