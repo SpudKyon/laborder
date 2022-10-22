@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongdong.laborder.mapper.FileMapper" >
+  <resultMap id="BaseResultMap" type="com.dongdong.laborder.entity.File" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_ST" property="fileSt" jdbcType="VARCHAR" />
+    <result column="receipt_ST" property="receiptSt" jdbcType="VARCHAR" />
+    <result column="reimb_ST" property="reimbSt" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, file_ST, receipt_ST, reimb_ST
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dongdong.laborder.entity.FileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dongdong.laborder.entity.FileExample" >
+    delete from t_file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dongdong.laborder.entity.File" >
+    insert into t_file (id, file_ST, receipt_ST, 
+      reimb_ST)
+    values (#{id,jdbcType=INTEGER}, #{fileSt,jdbcType=VARCHAR}, #{receiptSt,jdbcType=VARCHAR}, 
+      #{reimbSt,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dongdong.laborder.entity.File" >
+    insert into t_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileSt != null" >
+        file_ST,
+      </if>
+      <if test="receiptSt != null" >
+        receipt_ST,
+      </if>
+      <if test="reimbSt != null" >
+        reimb_ST,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fileSt != null" >
+        #{fileSt,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptSt != null" >
+        #{receiptSt,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbSt != null" >
+        #{reimbSt,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dongdong.laborder.entity.FileExample" resultType="java.lang.Integer" >
+    select count(*) from t_file
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_file
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileSt != null" >
+        file_ST = #{record.fileSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptSt != null" >
+        receipt_ST = #{record.receiptSt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reimbSt != null" >
+        reimb_ST = #{record.reimbSt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_file
+    set id = #{record.id,jdbcType=INTEGER},
+      file_ST = #{record.fileSt,jdbcType=VARCHAR},
+      receipt_ST = #{record.receiptSt,jdbcType=VARCHAR},
+      reimb_ST = #{record.reimbSt,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongdong.laborder.entity.File" >
+    update t_file
+    <set >
+      <if test="fileSt != null" >
+        file_ST = #{fileSt,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptSt != null" >
+        receipt_ST = #{receiptSt,jdbcType=VARCHAR},
+      </if>
+      <if test="reimbSt != null" >
+        reimb_ST = #{reimbSt,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongdong.laborder.entity.File" >
+    update t_file
+    set file_ST = #{fileSt,jdbcType=VARCHAR},
+      receipt_ST = #{receiptSt,jdbcType=VARCHAR},
+      reimb_ST = #{reimbSt,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dongdong.laborder.mapper.EquipMapper" >
+  <resultMap id="BaseResultMap" type="com.dongdong.laborder.entity.Equip" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="equip_name" property="equipName" jdbcType="VARCHAR" />
+    <result column="equip_purpose" property="equipPurpose" jdbcType="VARCHAR" />
+    <result column="equip_brand" property="equipBrand" jdbcType="VARCHAR" />
+    <result column="equip_seller" property="equipSeller" jdbcType="VARCHAR" />
+    <result column="equip_price" property="equipPrice" jdbcType="REAL" />
+    <result column="equip_detail" property="equipDetail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, equip_name, equip_purpose, equip_brand, equip_seller, equip_price, equip_detail
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dongdong.laborder.entity.EquipExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_equip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_equip
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_equip
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dongdong.laborder.entity.EquipExample" >
+    delete from t_equip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dongdong.laborder.entity.Equip" >
+    insert into t_equip (id, equip_name, equip_purpose, 
+      equip_brand, equip_seller, equip_price, 
+      equip_detail)
+    values (#{id,jdbcType=INTEGER}, #{equipName,jdbcType=VARCHAR}, #{equipPurpose,jdbcType=VARCHAR}, 
+      #{equipBrand,jdbcType=VARCHAR}, #{equipSeller,jdbcType=VARCHAR}, #{equipPrice,jdbcType=REAL}, 
+      #{equipDetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dongdong.laborder.entity.Equip" >
+    insert into t_equip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipName != null" >
+        equip_name,
+      </if>
+      <if test="equipPurpose != null" >
+        equip_purpose,
+      </if>
+      <if test="equipBrand != null" >
+        equip_brand,
+      </if>
+      <if test="equipSeller != null" >
+        equip_seller,
+      </if>
+      <if test="equipPrice != null" >
+        equip_price,
+      </if>
+      <if test="equipDetail != null" >
+        equip_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipPurpose != null" >
+        #{equipPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="equipBrand != null" >
+        #{equipBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="equipSeller != null" >
+        #{equipSeller,jdbcType=VARCHAR},
+      </if>
+      <if test="equipPrice != null" >
+        #{equipPrice,jdbcType=REAL},
+      </if>
+      <if test="equipDetail != null" >
+        #{equipDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dongdong.laborder.entity.EquipExample" resultType="java.lang.Integer" >
+    select count(*) from t_equip
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_equip
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipName != null" >
+        equip_name = #{record.equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipPurpose != null" >
+        equip_purpose = #{record.equipPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipBrand != null" >
+        equip_brand = #{record.equipBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipSeller != null" >
+        equip_seller = #{record.equipSeller,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipPrice != null" >
+        equip_price = #{record.equipPrice,jdbcType=REAL},
+      </if>
+      <if test="record.equipDetail != null" >
+        equip_detail = #{record.equipDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_equip
+    set id = #{record.id,jdbcType=INTEGER},
+      equip_name = #{record.equipName,jdbcType=VARCHAR},
+      equip_purpose = #{record.equipPurpose,jdbcType=VARCHAR},
+      equip_brand = #{record.equipBrand,jdbcType=VARCHAR},
+      equip_seller = #{record.equipSeller,jdbcType=VARCHAR},
+      equip_price = #{record.equipPrice,jdbcType=REAL},
+      equip_detail = #{record.equipDetail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dongdong.laborder.entity.Equip" >
+    update t_equip
+    <set >
+      <if test="equipName != null" >
+        equip_name = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipPurpose != null" >
+        equip_purpose = #{equipPurpose,jdbcType=VARCHAR},
+      </if>
+      <if test="equipBrand != null" >
+        equip_brand = #{equipBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="equipSeller != null" >
+        equip_seller = #{equipSeller,jdbcType=VARCHAR},
+      </if>
+      <if test="equipPrice != null" >
+        equip_price = #{equipPrice,jdbcType=REAL},
+      </if>
+      <if test="equipDetail != null" >
+        equip_detail = #{equipDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dongdong.laborder.entity.Equip" >
+    update t_equip
+    set equip_name = #{equipName,jdbcType=VARCHAR},
+      equip_purpose = #{equipPurpose,jdbcType=VARCHAR},
+      equip_brand = #{equipBrand,jdbcType=VARCHAR},
+      equip_seller = #{equipSeller,jdbcType=VARCHAR},
+      equip_price = #{equipPrice,jdbcType=REAL},
+      equip_detail = #{equipDetail,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
